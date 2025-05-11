@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 using JobApplicationTracker.Views.Home;
 using Microsoft.EntityFrameworkCore;
+using CsvHelper;
+using System.Globalization;
 
 namespace JobApplicationTracker.Controllers
 {
@@ -304,9 +306,48 @@ namespace JobApplicationTracker.Controllers
             return View();
         }
 
+        public IActionResult ExportJobs()
+        {
+            var jobs = _context.Jobs.ToList();
 
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var streamWriter = new StreamWriter(memoryStream))
+                using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
+                {
+                    // This writes the header and records based on your Job model
+                    csvWriter.WriteRecords(jobs);
+                }
+                return File(memoryStream.ToArray(), "text/csv", "jobs.csv");
+            }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> ImportJobs(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                ModelState.AddModelError("", "Please upload a valid CSV file.");
+                return RedirectToAction("Jobs");
+            }
 
+            using (var streamReader = new StreamReader(file.OpenReadStream()))
+            using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+            {
+                // Map CSV fields to your Job model
+                var records = csvReader.GetRecords<Job>().ToList();
+
+                foreach (var job in records)
+                {
+                    // You may need to assign additional required properties,
+                    // such as the UserId (for example, the logged-in user's id)
+                    // job.UserId = _userManager.GetUserId(User);
+                    _context.Jobs.Add(job);
+                }
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Jobs");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

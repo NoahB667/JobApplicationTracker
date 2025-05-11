@@ -91,4 +91,14 @@
     <div class="d-flex justify-content-end mb-3">
         <a asp-action="CreateEditJob" class="btn btn-success">Add New Job</a>
     </div>
+    <div class="mb-3">
+        <a asp-action="ExportJobs" class="btn btn-info">Export Jobs to CSV</a>
+    </div>
+    <form asp-action="ImportJobs" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="csvFile" class="form-label">Import CSV File</label>
+            <input type="file" class="form-control" id="csvFile" name="file" accept=".csv" />
+        </div>
+        <button type="submit" class="btn btn-primary">Import Jobs</button>
+    </form>
 </div>
