@@ -32,3 +32,8 @@ footer {
 button[type="submit"] {
     margin-bottom: 60px; /* Add space below the button */
 }
+
+.navbar-nav {
+    list-style-type: none;
+    padding-left: 0;
+}

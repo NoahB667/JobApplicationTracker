@@ -1,6 +1,6 @@
 ﻿@using Azure.Core
 @{  
-    ViewData["Title"] = "Job Applications";  
+    ViewData["Title"] = "Job Applications";
 }  
 
 @model JobApplicationTracker.Views.Home.JobsModel
@@ -91,6 +91,7 @@
     <div class="d-flex justify-content-end mb-3">
         <a asp-action="CreateEditJob" class="btn btn-success">Add New Job</a>
     </div>
+	<!-- Button to Export and Import Jobs 
     <div class="mb-3">
         <a asp-action="ExportJobs" class="btn btn-info">Export Jobs to CSV</a>
     </div>
@@ -100,5 +101,5 @@
             <input type="file" class="form-control" id="csvFile" name="file" accept=".csv" />
         </div>
         <button type="submit" class="btn btn-primary">Import Jobs</button>
-    </form>
+    </form>-->
 </div>
