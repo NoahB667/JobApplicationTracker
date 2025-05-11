@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to the Job Application Tracker</h1>
+        <p class="lead mt-3">
+            Manage your job applications effortlessly. Track your progress, stay organized, and never miss an opportunity.
+        </p>
+        <div class="mt-4">
+            <a asp-action="Jobs" class="btn btn-primary btn-lg me-3">View Job Applications</a>
+            <a asp-action="CreateEditJob" class="btn btn-primary btn-lg">Add a New Job</a>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row text-center">
+        <div class="col-md-4">
+            <i class="bi bi-briefcase-fill display-4 text-primary"></i>
+            <h3 class="mt-3">Track Applications</h3>
+            <p>Keep all your job applications in one place and track their progress effortlessly.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-calendar-check-fill display-4 text-success"></i>
+            <h3 class="mt-3">Stay Organized</h3>
+            <p>Set reminders for interviews and follow-ups to stay ahead in your job search.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-bar-chart-fill display-4 text-warning"></i>
+            <h3 class="mt-3">Analyze Progress</h3>
+            <p>Get insights into your job search with detailed statistics and reports.</p>
+        </div>
+    </div>
+</div>

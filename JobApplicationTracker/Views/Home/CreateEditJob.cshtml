@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Create / Edit";
+}
+
+@model JobApplicationTracker.Models.Job
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Create or Edit a Job Application</h1>
+    <form asp-action="CreateEditJobForm" asp-controller="Home" class="needs-validation" novalidate>
+        <input hidden class="form-control" type="number" asp-for="Id" />
+        <div class="mb-3">
+            <label for="jobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" placeholder="Enter job title" asp-for="Title" required>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="companyName" class="form-label">Company Name</label>
+            <input type="text" class="form-control" id="companyName" placeholder="Enter company name" asp-for="Company" required>
+            <span asp-validation-for="Company" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" placeholder="Enter location" asp-for="Location" required>
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" asp-for="Description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Status" id="statusApplied" value="Applied">
+                <label class="form-check-label" for="statusApplied">Applied</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Status" id="statusInterviewing" value="Interviewing">
+                <label class="form-check-label" for="statusInterviewing">Interviewing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Status" id="statusOffer" value="Offer">
+                <label class="form-check-label" for="statusOffer">Offer</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Status" id="statusRejected" value="Rejected">
+                <label class="form-check-label" for="statusRejected">Rejected</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="applicationDate" class="form-label">Application Date</label>
+            <input type="date" class="form-control" id="applicationDate" asp-for="ApplicationDate">
+        </div>
+        <div class="mb-3">
+            <label for="interviewDate" class="form-label">Interview Date</label>
+            <input type="date" class="form-control" id="interviewDate" asp-for="InterviewDate">
+        </div>
+        <div class="mb-3">
+            <label for="jobLink" class="form-label">Job Link</label>
+            <input type="text" class="form-control" id="jobLink" placeholder="Enter Job Link" asp-for="JobLink">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+@section Scripts {
+		<partial name="_ValidationScriptsPartial" />
+}

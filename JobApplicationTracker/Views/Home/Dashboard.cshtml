@@ -1,0 +1,46 @@
+﻿<div class="container mt-5">
+    <h1 class="text-center mb-4">Dashboard</h1>
+
+    <div class="row">
+        <!-- Pie Chart -->
+        <div class="col-md-6">
+            <h3 class="text-center">Status Distribution</h3>
+            <canvas id="statusPieChart"></canvas>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="col-md-6">
+            <h3 class="text-center">Applications Per Month</h3>
+            <canvas id="applicationsBarChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pie Chart for Status Distribution
+    const statusPieCtx = document.getElementById('statusPieChart').getContext('2d');
+    const statusPieChart = new Chart(statusPieCtx, {
+        type: 'pie',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.StatusLabels)),
+            datasets: [{
+                data: @Html.Raw(Json.Serialize(ViewBag.StatusData)),
+                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6c757d']
+            }]
+        }
+    });
+
+    // Bar Chart for Applications Per Month
+    const applicationsBarCtx = document.getElementById('applicationsBarChart').getContext('2d');
+    const applicationsBarChart = new Chart(applicationsBarCtx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewBag.MonthLabels)),
+            datasets: [{
+                label: 'Applications',
+                data: @Html.Raw(Json.Serialize(ViewBag.MonthData)),
+                backgroundColor: '#007bff'
+            }]
+        }
+    });
+</script>

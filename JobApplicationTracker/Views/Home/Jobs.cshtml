@@ -1,0 +1,94 @@
+﻿@using Azure.Core
+@{  
+    ViewData["Title"] = "Job Applications";  
+}  
+
+@model JobApplicationTracker.Views.Home.JobsModel
+
+<div class="container mt-5">  
+    <h1 class="text-center mb-4">Job Applications</h1>  
+
+    <!-- Search and Filter Form -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-3">
+                    <label for="company" class="form-label">Company</label>
+                    <input type="text" class="form-control" id="company" name="company" value="@Model.Company" placeholder="Filter by company">
+                </div>
+                <div class="col-md-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" asp-items="ViewBag.StatusOptions"></select>
+                </div>
+                <div class="col-md-3">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="@Model.StartDate">
+                </div>
+                <div class="col-md-3">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" value="@Model.EndDate">
+                </div>
+                <div class="col-md-6">
+                    <label for="keyword" class="form-label">Keyword</label>
+                    <input type="text" class="form-control" id="keyword" name="keyword" value="@Model.Keyword" placeholder="Search in title or notes">
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Jobs Table or No Results Message -->
+    @if (Model.Jobs != null && Model.Jobs.Any())
+    {
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Application Date</th>
+                            <th>Interview Date</th>
+                            <th>Job Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var job in Model.Jobs)
+                    {
+                                <tr>
+                                    <td>@job.Id</td>
+                                    <td>@job.Title</td>
+                                    <td>@job.Company</td>
+                                    <td>@job.Location</td>
+                                    <td>@job.Description</td>
+                                    <td>@job.Status</td>
+                                    <td>@job.ApplicationDate?.ToString("yyyy-MM-dd")</td>
+                                    <td>@job.InterviewDate?.ToString("yyyy-MM-dd")</td>
+                                    <td><a href="@job.JobLink" target="_blank">@job.JobLink</a></td>
+                                    <td>
+                                        <a asp-action="CreateEditJob" asp-route-id="@job.Id" class="btn btn-sm btn-warning me-2">Edit</a>
+                                        <a asp-action="DeleteJob" asp-route-id="@job.Id" class="btn btn-sm btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+    }
+    else
+    {
+            <div class="alert alert-warning text-center mt-4">
+                <strong>No results found.</strong> Try adjusting your search or filter criteria.
+            </div>
+    }
+    <!-- Button to Create/Edit Job -->
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-action="CreateEditJob" class="btn btn-success">Add New Job</a>
+    </div>
+</div>
